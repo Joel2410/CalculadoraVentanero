@@ -32,9 +32,9 @@ heightElement.addEventListener("keydown", (event) => {
 });
 
 init = () => {
-  widthElement.value = "47";
+  widthElement.value = "47 1/8";
   heightElement.value = "39 1/2";
-  bodiesElement.value = "2";
+  bodiesElement.value = "3";
 };
 
 const validateKeys = (value, event) => {
@@ -159,9 +159,13 @@ const decimalToFraction = (decimal) => {
   numerador = Math.round(numerador) / mcd;
   denominador = denominador / mcd;
 
-  return `${Math.floor(decimal)} ${
-    numerador % denominador ? (numerador % denominador) + "/" + denominador : ""
-  }`;
+  return denominador.toString().length > 3
+    ? `${decimal}`
+    : `${Math.floor(decimal)} ${
+        numerador % denominador
+          ? (numerador % denominador) + "/" + denominador
+          : ""
+      }`;
 };
 
 const clearInputs = () => {
