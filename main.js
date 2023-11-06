@@ -32,9 +32,9 @@ heightElement.addEventListener("keydown", (event) => {
 });
 
 init = () => {
-  widthElement.value = "47 1/8";
-  heightElement.value = "39 1/2";
-  bodiesElement.value = "3";
+  //widthElement.value = "47 1/8";
+  //heightElement.value = "39 1/2";
+  bodiesElement.value = "2";
 };
 
 const validateKeys = (value, event) => {
