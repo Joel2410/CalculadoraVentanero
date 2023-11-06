@@ -7,6 +7,8 @@ const tableElement = resultsElement.getElementsByTagName("table")[0];
 const regex = /^\d+(\.\d+)?( \d+\/\d+)?$/;
 const validKeys = /^[0-9\. \/]$/;
 
+const decimals = 4;
+
 widthElement.addEventListener("input", () => {
   const value = widthElement.value.trim();
   const valid = regex.test(value);
@@ -111,24 +113,25 @@ const generateRow = (width, height, bodies) => {
   let cabezal = 0;
   if (bodies == 2) cabezal = width / bodies - 5 / 16;
   else if (bodies == 3) cabezal = width / bodies;
-  cabezal = Math.round(cabezal, 4);
+  cabezal = cabezal.toFixed(decimals);
 
-  cCabezal.innerText = bodies + "-" + decimalToFraction(cabezal);
+  cCabezal.innerText = bodies + " - " + decimalToFraction(cabezal);
 
-  const llavin = Math.round(height - 7 / 8, 4);
-  cLlavin.innerText = bodies + "-" + decimalToFraction(llavin);
+  const llavin = (height - 7 / 8).toFixed(decimals);
+  cLlavin.innerText = bodies + " - " + decimalToFraction(llavin);
 
-  const riel = Math.round(width - 1 / 4, 4);
-  cRiel.innerText = 2 + "-" + decimalToFraction(riel);
+  const riel = (width - 1 / 4).toFixed(decimals);
+  cRiel.innerText = 2 + " - " + decimalToFraction(riel);
 
-  const lateral = Math.round(height - 9 / 16, 4);
-  cLateral.innerText = 2 + "-" + decimalToFraction(lateral);
+  const lateral = (height - 9 / 16).toFixed(decimals);
+  cLateral.innerText = 2 + " - " + decimalToFraction(lateral);
 
-  const vidrioWidth = Math.round(width / 2 - (2 + 1 / 8), 4);
-  const vidrioHeight = Math.round(height - 4, 4);
+  const vidrioWidth = (width / 2 - (2 + 1 / 8)).toFixed(decimals);
+  const vidrioHeight = (height - 4).toFixed(decimals);
+
   cVidrio.innerText =
     bodies +
-    "-" +
+    " - " +
     decimalToFraction(vidrioWidth) +
     " x " +
     decimalToFraction(vidrioHeight);
