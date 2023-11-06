@@ -1,0 +1,45 @@
+.measures {
+  display: flex;
+}
+
+.measure {
+  margin: 5px;
+}
+
+.number {
+  max-width: 50px;
+}
+
+.buttons {
+  margin-right: 10px;
+  padding-top: 5px;
+}
+
+.results {
+  margin-top: 20px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  font-size: small;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+@media print {
+  .no-print,
+  .no-print * {
+    display: none !important;
+  }
+}

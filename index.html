@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora Ventanero</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="main">
+      <div class="measures no-print">
+        <div class="measure">
+          <label for="width">Ancho: </label>
+          <input id="width" class="number" type="text" />
+        </div>
+        <div class="measure">
+          <label for="height">Largo: </label>
+          <input id="height" class="number" type="text" />
+        </div>
+        <div class="measure">
+          <label for="bodies">Cuerpos: </label>
+          <input id="bodies" class="number" type="number" min="2" max="3" />
+        </div>
+        <div class="buttons">
+          <input type="button" value="Agregar" onclick="generate()" />
+          <input type="button" value="Imprimir" onclick="window.print()" />
+        </div>
+      </div>
+
+      <div id="results" class="results" hidden>
+        <table>
+          <tr>
+            <th>Tamaño</th>
+            <th>Cuerpos</th>
+            <th>Cabezal / Alfeizar</th>
+            <th>Llavin / Enganche</th>
+            <th>Rieles</th>
+            <th>Laterales</th>
+            <th>Vidrio</th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
