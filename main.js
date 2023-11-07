@@ -34,7 +34,7 @@ heightElement.addEventListener("keydown", (event) => {
 const init = () => {
   widthElement.value = "47 1/8";
   heightElement.value = "39 1/2";
-  bodiesElement.value = "2";
+  bodiesElement.value = "3";
 };
 
 const validateKeys = (value, event) => {
@@ -98,8 +98,8 @@ const generateRow = (width, height, bodies) => {
   const row = tableElement.insertRow(-1);
 
   const cSize = row.insertCell(0);
-  cSize.setAttribute('scope', 'row');
-  cSize.classList.add('rowHead');
+  cSize.setAttribute("scope", "row");
+  cSize.classList.add("rowHead");
 
   const cBodies = row.insertCell(1);
   const cCabezal = row.insertCell(2);
@@ -147,10 +147,12 @@ const calculateGCD = (a, b) => {
   return calculateGCD(b, a % b);
 };
 
-const decimalToFraction = (decimal) => {
+const decimalToFraction = (decimal, count = 0) => {
   const maxPrecision = 1000000;
   let numerador = decimal;
   let denominador = 1;
+
+  decimal = +decimal;
 
   while (Math.abs(numerador - Math.round(numerador)) > 1 / maxPrecision) {
     denominador *= 10;
@@ -161,6 +163,10 @@ const decimalToFraction = (decimal) => {
 
   numerador = Math.round(numerador) / mcd;
   denominador = denominador / mcd;
+  
+  if (count < 3 && denominador.toString().length > 2) {
+    return decimalToFraction(decimal.toFixed(3 - count), ++count);
+  }
 
   const fraction = `${Math.floor(decimal)} ${
     numerador % denominador ? (numerador % denominador) + "/" + denominador : ""
