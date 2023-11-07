@@ -37,6 +37,11 @@
   border: 1px solid black;
 }
 
+#option {
+  padding: 5px;
+  margin-right: 5px;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;

@@ -3,11 +3,16 @@ const heightElement = document.getElementById("height");
 const bodiesElement = document.getElementById("bodies");
 const resultsElement = document.getElementById("results");
 const tableElement = resultsElement.getElementsByTagName("tbody")[0];
+const optionElement = document.getElementById("option");
 
 const regex = /^\d+(\.\d+)?( \d+\/\d+)?$/;
 const validKeys = /^[0-9. /]$/;
 
 const decimals = 4;
+
+bodiesElement.addEventListener("keydown", (event) => {
+  validateEnter(bodiesElement, event);
+});
 
 widthElement.addEventListener("input", () => {
   const value = widthElement.value.trim();
@@ -18,6 +23,7 @@ widthElement.addEventListener("input", () => {
 
 widthElement.addEventListener("keydown", (event) => {
   validateKeys(widthElement.value, event);
+  validateEnter(widthElement, event);
 });
 
 heightElement.addEventListener("input", () => {
@@ -29,12 +35,15 @@ heightElement.addEventListener("input", () => {
 
 heightElement.addEventListener("keydown", (event) => {
   validateKeys(heightElement.value, event);
+  validateEnter(heightElement, event);
 });
 
 const init = () => {
-  widthElement.value = "47 1/8";
+  widthElement.value = "47";
   heightElement.value = "39 1/2";
-  bodiesElement.value = "3";
+  bodiesElement.value = "2";
+
+  widthElement.focus();
 };
 
 const validateKeys = (value, event) => {
@@ -48,6 +57,18 @@ const validateKeys = (value, event) => {
   if (event.key == "/" && value.includes("/")) event.preventDefault();
 
   return true;
+};
+
+const validateEnter = (input, event) => {
+  if (event.key === "Enter") {
+    event.preventDefault();
+
+    const nextIndex = parseInt(input.getAttribute("tabindex"), 10) + 1;
+    const nextInput = document.querySelector('[tabindex="' + nextIndex + '"]');
+    if (nextInput) {
+      nextInput.focus();
+    }
+  }
 };
 
 const generate = () => {
@@ -113,31 +134,74 @@ const generateRow = (width, height, bodies) => {
 
   cBodies.innerText = bodies;
 
-  let cabezal = 0;
-  if (bodies == 2) cabezal = width / bodies - 5 / 16;
-  else if (bodies == 3) cabezal = width / bodies;
-  cabezal = cabezal.toFixed(decimals);
+  const values = getValues(width, height, bodies);
 
-  cCabezal.innerText = bodies + " - " + decimalToFraction(cabezal);
-
-  const llavin = (height - 7 / 8).toFixed(decimals);
-  cLlavin.innerText = bodies + " - " + decimalToFraction(llavin);
-
-  const riel = (width - 1 / 4).toFixed(decimals);
-  cRiel.innerText = 2 + " - " + decimalToFraction(riel);
-
-  const lateral = (height - 9 / 16).toFixed(decimals);
-  cLateral.innerText = 2 + " - " + decimalToFraction(lateral);
-
-  const vidrioWidth = (width / 2 - (2 + 1 / 8)).toFixed(decimals);
-  const vidrioHeight = (height - 4).toFixed(decimals);
+  cCabezal.innerText = bodies + " - " + decimalToFraction(values.cabezal);
+  cLlavin.innerText = bodies + " - " + decimalToFraction(values.llavin);
+  cRiel.innerText = 2 + " - " + decimalToFraction(values.riel);
+  cLateral.innerText = 2 + " - " + decimalToFraction(values.lateral);
 
   cVidrio.innerText =
     bodies +
     " - " +
-    decimalToFraction(vidrioWidth) +
+    decimalToFraction(values.vidrioWidth) +
     " x " +
-    decimalToFraction(vidrioHeight);
+    decimalToFraction(values.vidrioHeight);
+};
+
+const getValues = (width, height, bodies) => {
+  const option = +optionElement.value;
+
+  let cabezal = 0;
+  let llavin = 0;
+  let riel = 0;
+  let lateral = 0;
+  let vidrioWidth = 0;
+  let vidrioHeight = 0;
+
+  switch (option) {
+    case 1:
+      cabezal = (width / bodies - (bodies == 2 ? 5 / 16 : 0)).toFixed(decimals);
+      riel = (width - 1 / 4).toFixed(decimals);
+      lateral = (height - 9 / 16).toFixed(decimals);
+      llavin = (height - 7 / 8).toFixed(decimals);
+      vidrioWidth = (width / 2 - (2 + 1 / 8)).toFixed(decimals);
+      vidrioHeight = (height - 4).toFixed(decimals);
+      break;
+
+    case 2:
+      cabezal = width / bodies;
+      if (bodies == 2) cabezal -= 5 / 8;
+      else if (bodies == 3) cabezal += 1 / 16;
+      cabezal = cabezal.toFixed(decimals);
+
+      riel = (width - (1 + 1 / 2)).toFixed(decimals);
+      lateral = (height - 1 / 8).toFixed(decimals);
+      llavin = (height - (2 + 1 / 8)).toFixed(decimals);
+
+      vidrioWidth = width / bodies;
+      if (bodies == 2) vidrioWidth -= 3 + 5 / 16;
+      else if (bodies == 3) vidrioWidth -= 2 + 9 / 16;
+      vidrioWidth = vidrioWidth.toFixed(decimals);
+
+      vidrioHeight = (height - 5).toFixed(decimals);
+      break;
+
+    case 3:
+      break;
+
+    case 4:
+      break;
+  }
+
+  return {
+    cabezal,
+    llavin,
+    riel,
+    lateral,
+    vidrioWidth,
+    vidrioHeight,
+  };
 };
 
 const calculateGCD = (a, b) => {
@@ -163,7 +227,7 @@ const decimalToFraction = (decimal, count = 0) => {
 
   numerador = Math.round(numerador) / mcd;
   denominador = denominador / mcd;
-  
+
   if (count < 3 && denominador.toString().length > 2) {
     return decimalToFraction(decimal.toFixed(3 - count), ++count);
   }

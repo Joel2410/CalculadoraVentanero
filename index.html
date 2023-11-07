@@ -3,30 +3,44 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>Calculadora Ventanero</title>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <div class="main">
       <div class="measures no-print">
+        <select name="option" id="option" tabindex="0">
+          <option value="1">Tradicional</option>
+          <option value="2">P-65</option>
+          <option value="3">P-92</option>
+          <option value="4">C-70</option>
+        </select>
+        <div class="measure">
+          <label for="bodies">Cuerpos: </label>
+          <input
+            id="bodies"
+            class="number"
+            type="number"
+            min="2"
+            max="3"
+            tabindex="1"
+          />
+        </div>
         <div class="measure">
           <label for="width">Ancho: </label>
-          <input id="width" class="number" type="text" />
+          <input id="width" class="number" type="text" tabindex="2" />
         </div>
         <div class="measure">
           <label for="height">Alto: </label>
-          <input id="height" class="number" type="text" />
-        </div>
-        <div class="measure">
-          <label for="bodies">Cuerpos: </label>
-          <input id="bodies" class="number" type="number" min="2" max="3" />
+          <input id="height" class="number" type="text" tabindex="3" />
         </div>
         <div class="buttons">
           <input
             class="button"
             type="button"
             value="Agregar"
+            tabindex="4"
             onclick="generate()"
           />
           <input
@@ -37,7 +51,7 @@
           />
         </div>
       </div>
-      
+
       <hr />
       <div id="results" class="results">
         <table>
