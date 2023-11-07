@@ -32,6 +32,11 @@
   margin-top: 20px;
 }
 
+.rowHead {
+  background-color: #dddddd;
+  border: 1px solid black;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
@@ -47,7 +52,18 @@ th {
 }
 
 tr:nth-child(even) {
+  background-color: #eceaea;
+}
+
+thead tr {
   background-color: #dddddd;
+  border: 1px solid black;
+}
+
+thead th {
+  border: 1px;
+  border-color: black;
+  border-style: solid;
 }
 
 @media print {

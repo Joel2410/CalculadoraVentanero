@@ -2,10 +2,10 @@ const widthElement = document.getElementById("width");
 const heightElement = document.getElementById("height");
 const bodiesElement = document.getElementById("bodies");
 const resultsElement = document.getElementById("results");
-const tableElement = resultsElement.getElementsByTagName("table")[0];
+const tableElement = resultsElement.getElementsByTagName("tbody")[0];
 
 const regex = /^\d+(\.\d+)?( \d+\/\d+)?$/;
-const validKeys = /^[0-9\. \/]$/;
+const validKeys = /^[0-9. /]$/;
 
 const decimals = 4;
 
@@ -31,9 +31,9 @@ heightElement.addEventListener("keydown", (event) => {
   validateKeys(heightElement.value, event);
 });
 
-init = () => {
-  //widthElement.value = "47 1/8";
-  //heightElement.value = "39 1/2";
+const init = () => {
+  widthElement.value = "47 1/8";
+  heightElement.value = "39 1/2";
   bodiesElement.value = "2";
 };
 
@@ -98,6 +98,9 @@ const generateRow = (width, height, bodies) => {
   const row = tableElement.insertRow(-1);
 
   const cSize = row.insertCell(0);
+  cSize.setAttribute('scope', 'row');
+  cSize.classList.add('rowHead');
+
   const cBodies = row.insertCell(1);
   const cCabezal = row.insertCell(2);
   const cLlavin = row.insertCell(3);
@@ -159,13 +162,11 @@ const decimalToFraction = (decimal) => {
   numerador = Math.round(numerador) / mcd;
   denominador = denominador / mcd;
 
-  return denominador.toString().length > 3
-    ? `${decimal}`
-    : `${Math.floor(decimal)} ${
-        numerador % denominador
-          ? (numerador % denominador) + "/" + denominador
-          : ""
-      }`;
+  const fraction = `${Math.floor(decimal)} ${
+    numerador % denominador ? (numerador % denominador) + "/" + denominador : ""
+  }`;
+
+  return denominador.toString().length > 3 ? `${decimal}` : fraction;
 };
 
 const clearInputs = () => {
