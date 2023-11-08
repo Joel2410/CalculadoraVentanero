@@ -37,6 +37,14 @@
   border: 1px solid black;
 }
 
+.colActions {
+  max-width: 10px;
+}
+
+.deleteButton {
+  width: 100%;
+}
+
 #option {
   padding: 5px;
   margin-right: 5px;
@@ -75,5 +83,14 @@ thead th {
   .no-print,
   .no-print * {
     display: none !important;
+  }
+  @page {
+    size: landscape;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  body {
+    margin-top: 0;
+    margin-bottom: 0;
   }
 }

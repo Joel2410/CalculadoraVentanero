@@ -1,8 +1,7 @@
 const widthElement = document.getElementById("width");
 const heightElement = document.getElementById("height");
 const bodiesElement = document.getElementById("bodies");
-const resultsElement = document.getElementById("results");
-const tableElement = resultsElement.getElementsByTagName("tbody")[0];
+const tableBodyElement = document.getElementsByTagName("tbody")[0];
 const optionElement = document.getElementById("option");
 
 const regex = /^\d+(\.\d+)?( \d+\/\d+)?$/;
@@ -39,8 +38,8 @@ heightElement.addEventListener("keydown", (event) => {
 });
 
 const init = () => {
-  widthElement.value = "47";
-  heightElement.value = "39 1/2";
+  // widthElement.value = "47";
+  // heightElement.value = "39 1/2";
   bodiesElement.value = "2";
 
   widthElement.focus();
@@ -81,7 +80,7 @@ const generate = () => {
 
   generateRow(width, height, bodies);
 
-  resultsElement.hidden = false;
+  optionElement.disabled = tableBodyElement.rows.length > 0;
 
   clearInputs();
 
@@ -116,18 +115,25 @@ const validateForm = (width, height, bodies) => {
 };
 
 const generateRow = (width, height, bodies) => {
-  const row = tableElement.insertRow(-1);
+  const row = tableBodyElement.insertRow(-1);
 
-  const cSize = row.insertCell(0);
-  cSize.setAttribute("scope", "row");
-  cSize.classList.add("rowHead");
+  const cSequence = row.insertCell(0);
+  cSequence.setAttribute("scope", "row");
+  cSequence.classList.add("rowHead");
 
-  const cBodies = row.insertCell(1);
-  const cCabezal = row.insertCell(2);
-  const cLlavin = row.insertCell(3);
-  const cRiel = row.insertCell(4);
-  const cLateral = row.insertCell(5);
-  const cVidrio = row.insertCell(6);
+  const cSize = row.insertCell(1);
+  const cBodies = row.insertCell(2);
+  const cCabezal = row.insertCell(3);
+  const cLlavin = row.insertCell(4);
+  const cRiel = row.insertCell(5);
+  const cLateral = row.insertCell(6);
+  const cVidrio = row.insertCell(7);
+
+  const cActions = row.insertCell(8);
+  cActions.classList.add("colActions");
+  cActions.classList.add("no-print");
+
+  cSequence.innerText = row.rowIndex;
 
   cSize.innerText =
     decimalToFraction(width) + " x " + decimalToFraction(height);
@@ -147,6 +153,27 @@ const generateRow = (width, height, bodies) => {
     decimalToFraction(values.vidrioWidth) +
     " x " +
     decimalToFraction(values.vidrioHeight);
+
+  const deleteButton = document.createElement("button");
+  deleteButton.innerText = "-";
+  deleteButton.classList.add("deleteButton");
+  deleteButton.onclick = () => {
+    deleteRow(row.rowIndex);
+  };
+
+  cActions.appendChild(deleteButton);
+};
+
+const deleteRow = (row) => {
+  tableBodyElement.deleteRow(row - 1);
+
+  optionElement.disabled = tableBodyElement.rows.length > 0;
+
+  // Reenumerar la columna ID
+  const rows = tableBodyElement.rows;
+  for (let i = row - 1; i < rows.length; i++) {
+    rows[i].cells[0].innerText = i + 1;
+  }
 };
 
 const getValues = (width, height, bodies) => {
