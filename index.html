@@ -9,60 +9,70 @@
   </head>
   <body>
     <div class="main">
-      <div class="measures no-print">
-        <select name="option" id="option" tabindex="0">
-          <option value="1">Tradicional</option>
-          <option value="2">P-65</option>
-          <option value="3">P-92</option>
-          <option value="4">C-70</option>
-        </select>
-        <div class="measure">
-          <label for="bodies">Cuerpos: </label>
-          <input
-            id="bodies"
-            class="number"
-            type="number"
-            min="2"
-            max="3"
-            tabindex="1"
-          />
+      <div class="header no-print">
+        <div class="measures">
+          <select name="option" id="option" tabindex="0">
+            <option value="1">Tradicional</option>
+            <option value="2">P-65</option>
+            <option value="3">P-92</option>
+            <option value="4">C-70</option>
+          </select>
+          <div class="measure">
+            <label for="bodies">Cuerpos: </label>
+            <input
+              id="bodies"
+              class="number"
+              type="number"
+              min="2"
+              max="3"
+              tabindex="1"
+            />
+          </div>
+          <div class="measure">
+            <label for="width">Ancho: </label>
+            <input id="width" class="number" type="text" tabindex="2" />
+          </div>
+          <div class="measure">
+            <label for="height">Alto: </label>
+            <input id="height" class="number" type="text" tabindex="3" />
+          </div>
+          <div class="buttons">
+            <button class="button" tabindex="4" onclick="generate()">
+              <img class="icon-big" src="./images/add.png" alt="Agregar" />
+            </button>
+            <button
+              class="button hide-md"
+              type="button"
+              onclick="window.print()"
+            >
+              <img class="icon-big" src="./images/print.png" alt="Agregar" />
+            </button>
+          </div>
         </div>
-        <div class="measure">
-          <label for="width">Ancho: </label>
-          <input id="width" class="number" type="text" tabindex="2" />
-        </div>
-        <div class="measure">
-          <label for="height">Alto: </label>
-          <input id="height" class="number" type="text" tabindex="3" />
-        </div>
-        <div class="buttons">
-          <input
-            class="button"
-            type="button"
-            value="Agregar"
-            tabindex="4"
-            onclick="generate()"
-          />
-          <input
-            class="button"
-            type="button"
-            value="Imprimir"
-            onclick="window.print()"
-          />
-        </div>
+        <hr />
       </div>
 
-      <hr />
       <div id="results" class="results">
         <table>
           <caption>
-            <h2>Hoja de cortes</h2>
+            <div class="d-flex">
+              <h2 class="mr-5">Hoja de cortes</h2>
+              <div class="show-md center no-print">
+                <button class="button" type="button" onclick="window.print()">
+                  <img
+                    class="icon-big"
+                    src="./images/print.png"
+                    alt="Agregar"
+                  />
+                </button>
+              </div>
+            </div>
           </caption>
           <thead colspan="9">
             <tr>
               <th scope="col"></th>
               <th scope="col">Tamaño</th>
-              <th scope="col">Cuerpos</th>
+              <th scope="col">C.</th>
               <th scope="col">Cabezal / Alfeizar</th>
               <th scope="col">Llavin / Enganche</th>
               <th scope="col">Rieles</th>
@@ -76,6 +86,8 @@
       </div>
     </div>
 
-    <script src="main.js"></script>
+    <script src="./scripts/utils.js"></script>
+    <script src="./scripts/dom.js"></script>
+    <script src="./scripts/main.js"></script>
   </body>
 </html>
