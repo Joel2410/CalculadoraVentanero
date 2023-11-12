@@ -1,7 +1,8 @@
 const init = () => {
-  widthElement.value = "47";
-  heightElement.value = "39 1/2";
+  //widthElement.value = "85";
+  //heightElement.value = "90";
   bodiesElement.value = "2";
+  optionElement.value = "1";
 
   widthElement.focus();
 };

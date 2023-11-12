@@ -14,7 +14,7 @@ const getValues = (width, height, bodies) => {
   let vidrioHeight = 0;
 
   switch (option) {
-    case 1:
+    case 1: //Tradicional
       cabezal = (width / bodies - (bodies == 2 ? 5 / 16 : 0)).toFixed(decimals);
       riel = (width - 1 / 4).toFixed(decimals);
       lateral = (height - 9 / 16).toFixed(decimals);
@@ -23,7 +23,7 @@ const getValues = (width, height, bodies) => {
       vidrioHeight = (height - 4).toFixed(decimals);
       break;
 
-    case 2:
+    case 2: //P-65
       cabezal = width / bodies;
       if (bodies == 2) cabezal -= 5 / 8;
       else if (bodies == 3) cabezal += 1 / 16;
@@ -41,10 +41,41 @@ const getValues = (width, height, bodies) => {
       vidrioHeight = (height - 5).toFixed(decimals);
       break;
 
-    case 3:
+    case 3: //P-92
+      cabezal = width / bodies;
+      if (bodies == 2) cabezal -= 7 / 16;
+      else if (bodies == 3) cabezal += 3 / 16;
+      cabezal = cabezal.toFixed(decimals);
+
+      riel = (width - (1 + 5 / 8)).toFixed(decimals);
+      lateral = (height - 1 / 4).toFixed(decimals);
+      llavin = (height - (2 + 1 / 2)).toFixed(decimals);
+
+      vidrioWidth = width / bodies;
+      if (bodies == 2) vidrioWidth -= 3 + 3 / 4;
+      else if (bodies == 3) vidrioWidth -= 2 + 9 / 16;
+      vidrioWidth = vidrioWidth.toFixed(decimals);
+
+      vidrioHeight = (height - (6 + 1 / 2)).toFixed(decimals);
+
       break;
 
-    case 4:
+    case 4: //C-70
+      cabezal = width / bodies;
+      if (bodies == 2) cabezal -= 1 / 4;
+      else if (bodies == 3) cabezal += 1 / 2;
+      cabezal = cabezal.toFixed(decimals);
+
+      riel = (width - 1 / 4).toFixed(decimals);
+      lateral = (height - 1 / 4).toFixed(decimals);
+      llavin = (height - (2 + 3 / 4)).toFixed(decimals);
+
+      vidrioWidth = width / bodies;
+      if (bodies == 2) vidrioWidth -= 4 + 1 / 8;
+      else if (bodies == 3) vidrioWidth -= 3 + 3 / 8;
+      vidrioWidth = vidrioWidth.toFixed(decimals);
+
+      vidrioHeight = (height - (6 + 5 / 8)).toFixed(decimals);
       break;
   }
 
