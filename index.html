@@ -15,7 +15,8 @@
             <option value="1">Tradicional</option>
             <option value="2">P-65</option>
             <option value="3">P-92</option>
-            <option value="4">C-70</option>
+            <option value="4">P-92 Interior</option>
+            <option value="5">C-70</option>
           </select>
           <div class="measure">
             <label for="bodies">Cuerpos: </label>
@@ -40,11 +41,7 @@
             <button class="button" tabindex="4" onclick="generate()">
               <img class="icon-big" src="./images/add.png" alt="Agregar" />
             </button>
-            <button
-              class="button hide-md"
-              type="button"
-              onclick="window.print()"
-            >
+            <button class="button" type="button" onclick="window.print()">
               <img class="icon-big" src="./images/print.png" alt="Agregar" />
             </button>
           </div>
@@ -55,26 +52,18 @@
       <div id="results" class="results">
         <table>
           <caption>
-            <div class="d-flex">
-              <h2 class="mr-5">Hoja de cortes</h2>
-              <div class="show-md center no-print">
-                <button class="button" type="button" onclick="window.print()">
-                  <img
-                    class="icon-big"
-                    src="./images/print.png"
-                    alt="Agregar"
-                  />
-                </button>
-              </div>
-            </div>
+            <h2 id="title">Hoja de cortes</h2>
+            <h5 id="subtitle" class="only-print">Corredera</h5>
           </caption>
-          <thead colspan="9">
+          <thead colspan="11">
             <tr>
               <th scope="col"></th>
               <th scope="col">Tamaño</th>
               <th scope="col">C.</th>
-              <th scope="col">Cabezal / Alfeizar</th>
-              <th scope="col">Llavin / Enganche</th>
+              <th id="colHead" scope="col">Cabezal</th>
+              <th id="colLedge" scope="col">Alfeizar</th>
+              <th scope="col">Llavin</th>
+              <th scope="col">Enganche</th>
               <th scope="col">Rieles</th>
               <th scope="col">Laterales</th>
               <th scope="col">Vidrio</th>

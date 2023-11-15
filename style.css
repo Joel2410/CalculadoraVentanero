@@ -77,11 +77,6 @@
   justify-content: center;
 }
 
-.center {
-  display: flex;
-  align-items: center;
-}
-
 .pt-5 {
   padding-top: 5px;
 }
@@ -90,13 +85,26 @@
   margin-right: 5px;
 }
 
-.show-md {
-  display: none;
-}
-
 #option {
   padding: 5px;
   margin-right: 5px;
+}
+
+#title {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+#subtitle {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 20px;
+}
+
+.only-print {
+  display: none;
 }
 
 table {
@@ -145,14 +153,6 @@ thead th {
     padding-left: 10px;
     padding-right: 10px;
   }
-
-  .hide-md {
-    display: none;
-  }
-
-  .show-md {
-    display: flex;
-  }
 }
 
 @media print {
@@ -160,6 +160,11 @@ thead th {
   .no-print * {
     display: none !important;
   }
+  .only-print,
+  .only-print * {
+    display: block !important;
+  }
+
   @page {
     size: landscape;
     margin-top: 0;

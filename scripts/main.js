@@ -1,6 +1,6 @@
 const init = () => {
-  //widthElement.value = "85";
-  //heightElement.value = "90";
+  // widthElement.value = "85";
+  // heightElement.value = "90";
   bodiesElement.value = "2";
   optionElement.value = "1";
 
@@ -17,7 +17,7 @@ const generate = () => {
 
   generateRow(width, height, bodies);
 
-  optionElement.disabled = tableBodyElement.rows.length > 0;
+  refresh();
 
   clearInputs();
 
@@ -25,21 +25,30 @@ const generate = () => {
 };
 
 const generateRow = (width, height, bodies) => {
+  const option = +optionElement.value;
   const row = tableBodyElement.insertRow(-1);
 
-  const cSequence = row.insertCell(0);
+  let cellCount = 0;
+  const cSequence = row.insertCell(cellCount++);
   cSequence.setAttribute("scope", "row");
   cSequence.classList.add("row-head");
 
-  const cSize = row.insertCell(1);
-  const cBodies = row.insertCell(2);
-  const cCabezal = row.insertCell(3);
-  const cLlavin = row.insertCell(4);
-  const cRiel = row.insertCell(5);
-  const cLateral = row.insertCell(6);
-  const cVidrio = row.insertCell(7);
+  const cSize = row.insertCell(cellCount++);
+  const cBodies = row.insertCell(cellCount++);
 
-  const cActions = row.insertCell(8);
+  let cCabezal = undefined;
+  if (![3, 4].includes(option)) cCabezal = row.insertCell(cellCount++);
+
+  let cAlfeizar = undefined;
+  if (option != 5) cAlfeizar = row.insertCell(cellCount++);
+
+  const cLlavin = row.insertCell(cellCount++);
+  const cEnganche = row.insertCell(cellCount++);
+  const cRiel = row.insertCell(cellCount++);
+  const cLateral = row.insertCell(cellCount++);
+  const cVidrio = row.insertCell(cellCount++);
+
+  const cActions = row.insertCell(cellCount++);
   cActions.classList.add("col-actions");
   cActions.classList.add("no-print");
 
@@ -52,8 +61,20 @@ const generateRow = (width, height, bodies) => {
 
   const values = getValues(width, height, bodies);
 
-  cCabezal.innerText = bodies + " - " + decimalToFraction(values.cabezal);
+  if (cCabezal)
+    cCabezal.innerText = bodies + " - " + decimalToFraction(values.cabezal);
+
+  if (cAlfeizar)
+    cAlfeizar.innerText =
+      bodies * ([3, 4].includes(option) ? 2 : 1) +
+      " - " +
+      decimalToFraction(values.alfeizar);
+
   cLlavin.innerText = bodies + " - " + decimalToFraction(values.llavin);
+
+  if (cEnganche)
+    cEnganche.innerText = bodies + " - " + decimalToFraction(values.enganche);
+
   cRiel.innerText = 2 + " - " + decimalToFraction(values.riel);
   cLateral.innerText = 2 + " - " + decimalToFraction(values.lateral);
 
@@ -70,7 +91,7 @@ const generateRow = (width, height, bodies) => {
 const deleteRow = (row) => {
   tableBodyElement.deleteRow(row - 1);
 
-  optionElement.disabled = tableBodyElement.rows.length > 0;
+  refresh();
 
   const rows = tableBodyElement.rows;
   for (let i = row - 1; i < rows.length; i++) {
@@ -84,6 +105,28 @@ const clearInputs = () => {
 
   widthElement.style.color = "black";
   heightElement.style.color = "black";
+};
+
+const refresh = () => {
+  const option = +optionElement.value;
+
+  subtitleElement.innerText = `Corredera ${
+    optionElement.options[optionElement.selectedIndex].text
+  }`;
+
+  if (tableBodyElement.rows.length > 0) {
+    optionElement.disabled = true;
+    if ([3, 4].includes(option)) {
+      colHeadElement.hidden = true;
+    }
+    if (option == 5) {
+      colLedgeElement.hidden = true;
+    }
+  } else {
+    optionElement.disabled = false;
+    colHeadHitchElement.hidden = false;
+    colLedgeElement.hidden = false;
+  }
 };
 
 init();

@@ -3,6 +3,9 @@ const heightElement = document.getElementById("height");
 const bodiesElement = document.getElementById("bodies");
 const tableBodyElement = document.getElementsByTagName("tbody")[0];
 const optionElement = document.getElementById("option");
+const subtitleElement = document.getElementById("subtitle");
+const colHeadElement = document.getElementById("colHead");
+const colLedgeElement = document.getElementById("colLedge");
 
 bodiesElement.addEventListener("keydown", (event) => {
   validateEnter(bodiesElement, event);
