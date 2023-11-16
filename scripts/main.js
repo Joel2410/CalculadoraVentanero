@@ -1,6 +1,4 @@
 const init = () => {
-  // widthElement.value = "85";
-  // heightElement.value = "90";
   bodiesElement.value = "2";
   optionElement.value = "1";
 
@@ -36,10 +34,10 @@ const generateRow = (width, height, bodies) => {
   const cSize = row.insertCell(cellCount++);
   const cBodies = row.insertCell(cellCount++);
 
-  let cCabezal = undefined;
+  let cCabezal = null;
   if (![3, 4].includes(option)) cCabezal = row.insertCell(cellCount++);
 
-  let cAlfeizar = undefined;
+  let cAlfeizar = null;
   if (option != 5) cAlfeizar = row.insertCell(cellCount++);
 
   const cLlavin = row.insertCell(cellCount++);
@@ -85,17 +83,29 @@ const generateRow = (width, height, bodies) => {
     " x " +
     decimalToFraction(values.vidrioHeight);
 
-  cActions.appendChild(generateDeleteButton(row.rowIndex));
+  cActions.appendChild(generateDeleteButton(row.rowIndex - 1));
 };
 
 const deleteRow = (row) => {
-  tableBodyElement.deleteRow(row - 1);
+  tableBodyElement.deleteRow(row);
 
   refresh();
 
   const rows = tableBodyElement.rows;
-  for (let i = row - 1; i < rows.length; i++) {
+
+  for (let i = row; i < rows.length; i++) {
     rows[i].cells[0].innerText = i + 1;
+
+    const buttons =
+      rows[i].cells[rows[i].cells.length - 1].getElementsByClassName(
+        "delete-button"
+      );
+
+    if (buttons.length > 0) {
+      buttons[0].onclick = () => {
+        deleteRow(i);
+      };
+    }
   }
 };
 
@@ -124,7 +134,7 @@ const refresh = () => {
     }
   } else {
     optionElement.disabled = false;
-    colHeadHitchElement.hidden = false;
+    colHeadElement.hidden = false;
     colLedgeElement.hidden = false;
   }
 };

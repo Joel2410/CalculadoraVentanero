@@ -44,8 +44,6 @@ const calculateTraditional = (width, height, bodies) => {
   let vidrioWidth = 0;
   let vidrioHeight = 0;
 
-  console.log(width, height);
-
   cabezal = (width / bodies - (bodies == 2 ? 5 / 16 : 0)).toFixed(decimals);
   alfeizar = (width / bodies - (bodies == 2 ? 5 / 16 : 0)).toFixed(decimals);
   riel = (width - 1 / 4).toFixed(decimals);
